@@ -8,7 +8,7 @@
                 <div class="card-header">Edycja produktu</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('products.update', $product->id) }}">
+                    <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
@@ -29,7 +29,7 @@
                             <label for="description" class="col-md-4 col-form-label text-md-end">Opis</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" maxlenght="1500" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autocomplete="description" autofocus>{{ $product->description }}</textarea>
+                                <textarea id="description" maxlenght="1500" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autocomplete="description" required autofocus>{{ $product->description }}</textarea>
 
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -65,6 +65,33 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">Plik</label>
+
+                            <div class="col-md-6">
+                            <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+                                
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                        <div class="col-md-6 justify-content-center">
+                            @if(!is_null( $product->image_path ))
+                                <img src="{{ asset('storage/' . $product->image_path) }}" alt="Zdjęcie" >
+                            @endif 
+                                
                             </div>
                         </div>
 
