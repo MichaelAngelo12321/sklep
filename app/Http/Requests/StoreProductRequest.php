@@ -31,4 +31,5 @@ class StoreProductRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpg,png',
         ];
     }
+   
 }
