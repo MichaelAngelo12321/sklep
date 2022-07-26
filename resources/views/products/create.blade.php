@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('shop.product.fields.description')}}</label>
+                            <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('shop.product.fields.amount')}}</label>
 
                             <div class="col-md-6">
                                 <textarea id="description" maxlenght="1500" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}"  autocomplete="description" autofocus></textarea>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="amount" class="col-md-4 col-form-label text-md-end">{{ __('shop.product.fields.amount')}}</label>
+                            <label for="amount" class="col-md-4 col-form-label text-md-end">{{ __('shop.product.fields.description')}}</label>
 
                             <div class="col-md-6">
                                 <input id="amount" type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}"  autocomplete="amount" autofocus>
@@ -61,6 +61,25 @@
                                 <input id="price" type="number" step="0.01" min="0" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price">
 
                                 @error('price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <label for="category" class="col-md-4 col-form-label text-md-end">{{ __('shop.product.fields.category')}}</label>
+
+                            <div class="col-md-6">
+                                <select id="category_id" class="form-control @error('category_id') is-invalid @enderror" name="category_id">
+                                    <option value="">Brak</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

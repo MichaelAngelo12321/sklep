@@ -17,10 +17,12 @@ return [
     'index_title' => 'Listproduct',
     'fields' => [
         'name' => 'Name',
-        'amount' => 'Description',
-        'description' => 'Amount',
+        'amount' => 'Amount',
+        'description' => 'Description',
         'price' => 'Price',
         'image' => 'Image',
+        'actions' => 'Actions',
+        'category' => 'Category',
 
     ]
  ]

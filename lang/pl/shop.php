@@ -21,6 +21,7 @@ return [
         'description' => 'Ilość',
         'price' => 'Cena',
         'image' => 'Grafika',
+        'category' => 'Kategoria',
 
     ]
  ]
