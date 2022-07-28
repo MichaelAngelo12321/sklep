@@ -1,6 +1,14 @@
 <?php
 
 return [
+   'welcome' => [
+      'products' => 'Products',
+      'categories' => 'Categories',
+      'price' => 'Price',
+      'filtr' => 'Filrt',
+
+   ],
+
  'columns' => [
     'actions' => 'Actions',
  ],
