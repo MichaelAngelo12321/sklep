@@ -1,5 +1,7 @@
 $(function(){
-    $('.delete').click(function(){
+ 
+   $('.delete').click(function(){
+        
         Swal.fire({
 title: 'delete',
 icon: 'warning',
