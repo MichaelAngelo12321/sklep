@@ -18,11 +18,29 @@ return [
  'button' => [
     'save' => 'Save',
  ],
+
+ 'user'=>[
+   'delete' => [
+      'success' => 'User droped!',
+      ]
+   ],
  'product' => [
     'add_title' => 'Add product',
     'edit_title' => 'Edit product: :name',
     'show_title' => 'View product',
     'index_title' => 'Listproduct',
+
+    'status' => [
+      'store' => [
+      'success' => 'Product saved!',
+      ],
+      'update' => [
+         'success' => 'Produckt Updated!',
+         ],
+         'delete' => [
+            'success' => 'Product droped!',
+            ],
+    ],
     'fields' => [
         'name' => 'Name',
         'amount' => 'Amount',
@@ -34,4 +52,4 @@ return [
 
     ]
  ]
-];
+    ];

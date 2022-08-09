@@ -3,6 +3,11 @@
 @section('content')
 
 <div class="container">
+@include('helpers.messages')
+    <div class="row">
+        <div class="col-6">
+            <h1><i class="fa-solid fa-users"></i>Lista użytkowników</h1>
+        </div>
     <table class="table table-hover">
     <thead>
         <tr>
@@ -23,7 +28,7 @@
                 <td>{{$user->surname}}</td>
                 <td>{{$user->phone_number}}</td>
                 <td>
-                    <button class="btn btn-danger btn-sm delete" data-id="{{$user->id}}">X</button>
+                    <button class="btn btn-danger btn-sm delete" data-id="{{$user->id}}"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
             </tr>
         @endforeach    
@@ -34,6 +39,7 @@
 @endsection
 @section('javascript')
     const deleteUrl = "{{ url('users') }}/";
+    const confirmDelete = "{{ __('shop.message.delete') }}";
 @endsection
 @section('js-files')
 <script src="{{ asset('js/delete.js') }}"></script>

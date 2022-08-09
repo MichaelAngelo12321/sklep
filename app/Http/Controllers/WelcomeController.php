@@ -23,7 +23,6 @@ class WelcomeController extends Controller
 
         
         $query = Product::query();
-        $query->paginate($paginate);
         if (!is_null($filters)) {
             if (array_key_exists('categories', $filters)) {
             $query = $query->whereIn('category_id', $filters['categories']);
@@ -36,9 +35,7 @@ class WelcomeController extends Controller
             }
 
 
-            return response()->json([
-                'data' => $query->get()
-            ]);
+            return response()->json($query->paginate($paginate));
         }
 
         return view('welcome', [

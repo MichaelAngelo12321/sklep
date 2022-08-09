@@ -1,7 +1,7 @@
 $(function(){
   $('a#filtruj').click(function(event){
     event.preventDefault();
-    getProducts($('a.products-actual-count').text());
+    getProducts($('a.products-actual-count').first().text());
     
     
  });
@@ -18,7 +18,7 @@ $(function(){
 
     function getProducts(paginate){
       const form =  $('form.sidebar-filter').serialize();
-       $.ajax({
+       $.ajax({ 
         method:"GET",
         url: "/",
         data: form + '&' + $.param({paginate: paginate})
@@ -56,10 +56,10 @@ $(function(){
               
     }
     function getImage(product) {
-        if(!!product.image_path) {
-            return storagePath + product.image_path;
-        }
-        return defaultImage
-        
-    }
+      if(!!product.image_path) {
+          return storagePath + product.image_path;
+      }
+      return defaultImage
+      
+  }
 });
