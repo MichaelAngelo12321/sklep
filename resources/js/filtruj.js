@@ -1,10 +1,5 @@
 $(function(){
-  $('a#filtruj').click(function(event){
-    event.preventDefault();
-    getProducts($('a.products-actual-count').first().text());
-    
-    
- });
+
 
 
   $('div.products-count a').click(function(event) {
@@ -14,11 +9,50 @@ $(function(){
 
   });
 
-     
+    $('a#filtruj').click(function(event){
+        event.preventDefault();
+        getProducts($('a.products-actual-count').first().text());
+
+
+    });
+
+    $('button.add-cart-button').click(function(event){
+        event.preventDefault();
+        $.ajax({
+            method:"POST",
+            url: WELCOME_DATA.addToCart + $(this).data('id')
+        })
+            .done(function (){
+                Swal.fire({
+                    title: 'Brawo!',
+                    text: 'Produkt dodany do koszyka',
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: '<i class="fas fa-cart-plus"></i> Przejdź do koszyka',
+                    cancelButtonText: '<i class="fas fa-shopping-bag"></i> Kontynuuj zakupy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        alert('OK');
+
+
+                    }
+                })
+            })
+            .fail(function (){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'aaa',
+                    footer: '<a href="">Why do I have this issue?</a>'
+                })
+            });
+    });
+
+
 
     function getProducts(paginate){
       const form =  $('form.sidebar-filter').serialize();
-       $.ajax({ 
+       $.ajax({
         method:"GET",
         url: "/",
         data: form + '&' + $.param({paginate: paginate})
@@ -29,22 +63,22 @@ $(function(){
                 const html = '<div class="col-6 col-md-6 col-lg-4 mb-3">' +
                 '<div class="card h-100 border-0">' +
                   '<div class="card-img-top">' +
-                      
+
                           '<img src="'+ getImage(product) + '" class="img-fluid mx-auto d-block" alt="Zdjęcie">' +
-                     
-                          
-                              
+
+
+
                  ' </div>' +
                   '<div class="card-body text-center">' +
                    ' <h4 class="card-title">' +
-                      
+
                      product.name +
 
-                       
+
                    ' </h4>\n' +
                    ' <h5 class="card-price small text-warning">' +
                      ' <i>PLN '+ product.price +'</i>'
-                      
+
                     '</h5>' +
                   '</div>' +
                 '</div>' +
@@ -52,14 +86,14 @@ $(function(){
               $('div#products-wrapper').append(html);
             });
                 });
-            
-              
+
+
     }
     function getImage(product) {
       if(!!product.image_path) {
-          return storagePath + product.image_path;
+          return WELCOME_DATA.storagePath + product.image_path;
       }
-      return defaultImage
-      
+      return WELCOME_DATA.defaultImage
+
   }
 });

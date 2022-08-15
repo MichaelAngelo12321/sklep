@@ -24,14 +24,14 @@
                           <button type="button" class="btn btn-lg btn-light"> <span class="fa fa-arrow-right"></span> </button>
                         </div>
                         <div class="dropdown float-right">
-                          
+
                           <a class="btn btn-lg btn-light dropdown-toggle products-actual-count" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">5<span class="caret"></span></a>
                           <div class="dropdown-menu dropdown-menu-right products-count" aria-labelledby="navbarDropdown" x-placement="bottom-end" style="will-change: transform; position: absolute; transform: translate3d(120px, 48px, 0px); top: 0px; left: 0px;">
-                            <a class="dropdown-item" href="#">5</a>  
+                            <a class="dropdown-item" href="#">5</a>
                             <a class="dropdown-item" href="#">10</a>
                             <a class="dropdown-item" href="#">15</a>
                             <a class="dropdown-item" href="#">20</a>
-                            
+
                           </div>
                         </div>
                       </div>
@@ -45,23 +45,26 @@
                                   <img src="{{ asset('storage/' . $product->image_path) }}" class="img-fluid mx-auto d-block" alt="Zdjęcie">
                               @else
                               <img src="{{ $defaultImage }}" class="img-fluid mx-auto d-block" alt="Zdjęcię">
-                              @endif               
+                              @endif
                           </div>
                           <div class="card-body text-center">
                             <h4 class="card-title">
-                              
+
                                 {{ $product->name }}
 
-                               
+
                             </h4>
                             <h5 class="card-price small text-warning">
                               <i>PLN {{ $product->price }}</i>
-                              
+
                             </h5>
+
                           </div>
+                            <button class="btn btn-success btn-sm add-cart-button" data-id="{{ $product->id }}" @guest disabled @endguest>
+                                <i class="fas fa-cart-plus"> Dodaj do koszyka</i></button>
                         </div>
                       </div>
-                    @endforeach 
+                    @endforeach
                     </div>
                     <div class="row sorting mb-5 mt-5">
                       <div class="col-12">
@@ -86,7 +89,7 @@
                 </div><form class="col-md-4 order-md-1 col-lg-3 sidebar-filter">
                   <h3 class="mt-0 mb-5">{{ __('shop.welcome.products') }} <span class="text-primary">{{ count($products) }}</span> </h3>
                   <h6 class="text-uppercase font-weight-bold mb-3">{{ __('shop.welcome.categories') }}</h6>
-                 
+
                  @foreach($categories as $category)
                   <div class="mt-2 mb-2 pl-2">
                       <div class="custom-control custom-checkbox">
@@ -110,8 +113,13 @@
             </div>
 @endsection
 @section('javascript')
- const storagePath = '{{ asset('storage') }} /';
- const defaultImage = '{{ asset($defaultImage) }}';
+    const WELCOME_DATA = {
+     storagePath: '{{ asset('storage') }} /',
+     defaultImage: '{{ $defaultImage }}',
+     addToCart: '{{ url('cart') }}/'
+    }
+
+
 @endsection
 @section('js-files')
 <script src="{{ asset('js/filtruj.js') }}"></script>

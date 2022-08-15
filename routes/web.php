@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HelloWorldController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -29,6 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
     Route::get('/users/list', [UserController::class, 'index']);
     });
+    Route::get('/cart/list', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
