@@ -9,7 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-   
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -56,8 +56,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/users/list">Użytkownicy</a>
-                                    <a class="dropdown-item" href="{{ route('products.index') }}">Produkty</a>
+                                    @can('isAdmin')
+                                        <a class="dropdown-item" href="/users/list">Użytkownicy</a>
+                                        <a class="dropdown-item" href="{{ route('products.index') }}">Produkty</a>
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

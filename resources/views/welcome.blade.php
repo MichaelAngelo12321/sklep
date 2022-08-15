@@ -42,7 +42,7 @@
                         <div class="card h-100 border-0">
                           <div class="card-img-top">
                               @if(!is_null($product->image_path))
-                                  <img src="{{ asset('/storage/' . $product->image_path) }}" class="img-fluid mx-auto d-block" alt="Zdjęcie">
+                                  <img src="{{ asset('storage/' . $product->image_path) }}" class="img-fluid mx-auto d-block" alt="Zdjęcie">
                               @else
                               <img src="{{ $defaultImage }}" class="img-fluid mx-auto d-block" alt="Zdjęcię">
                               @endif               
