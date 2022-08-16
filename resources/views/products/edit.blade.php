@@ -54,7 +54,7 @@
                             </div>
                         </div>
 
-                    
+
                         <div class="row mb-3">
                             <label for="price" class="col-md-4 col-form-label text-md-end">Cena</label>
 
@@ -86,14 +86,14 @@
                                 @enderror
                             </div>
                         </div>
-                        
-                        
+
+
                         <div class="row mb-3">
                             <label for="image" class="col-md-4 col-form-label text-md-end">Plik</label>
 
                             <div class="col-md-6">
                             <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image">
-                                
+
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -106,18 +106,20 @@
 
 
                         <div class="row mb-3">
-                        <div class="col-md-6 justify-content-center">
+                        <div class="offset-md-4 col-md-6">
                             @if(!is_null( $product->image_path ))
-                                <img src="{{ asset('storage/' . $product->image_path) }}" alt="Zdjęcie" >
-                            @endif 
-                                
+                                <a href="{{ route('products.downloadImage', $product->id) }}">
+                                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="Zdjęcie" >
+                                </a>
+                            @endif
+
                             </div>
                         </div>
 
-                 
+
 
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 float-start">
                                 <button type="submit" class="btn btn-primary">
                                     Zapisz
                                 </button>
