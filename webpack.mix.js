@@ -15,5 +15,5 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/delete.js', 'public/js')
     .js('resources/js/filtruj.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .sourceMaps();
+    .postCss('resources/css/cart.css', 'public/css')
     mix.browserSync('sklep.test');

@@ -1,32 +1,78 @@
-/*
- * ATTENTION: An "eval-source-map" devtool has been used.
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./resources/js/filtruj.js":
+var __webpack_exports__ = {};
 /*!*********************************!*\
   !*** ./resources/js/filtruj.js ***!
   \*********************************/
-/***/ (() => {
+$(function () {
+  $('div.products-count a').click(function (event) {
+    event.preventDefault();
+    $('a.products-actual-count').text($(this).text());
+    getProducts($(this).text());
+  });
+  $('a#filtruj').click(function (event) {
+    event.preventDefault();
+    getProducts($('a.products-actual-count').first().text());
+  });
+  $('button.add-cart-button').click(function (event) {
+    event.preventDefault();
+    $.ajax({
+      method: "POST",
+      url: WELCOME_DATA.addToCart + $(this).data('id')
+    }).done(function () {
+      Swal.fire({
+        title: 'Brawo!',
+        text: 'Produkt dodany do koszyka',
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-cart-plus"></i> Przejdź do koszyka',
+        cancelButtonText: '<i class="fas fa-shopping-bag"></i> Kontynuuj zakupy'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          window.location = WELCOME_DATA.listCart;
+        }
+      });
+    }).fail(function () {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'aaa',
+        footer: '<a href="">Why do I have this issue?</a>'
+      });
+    });
+  });
 
-eval("$(function () {\n  $('div.products-count a').click(function (event) {\n    event.preventDefault();\n    $('a.products-actual-count').text($(this).text());\n    getProducts($(this).text());\n  });\n  $('a#filtruj').click(function (event) {\n    event.preventDefault();\n    getProducts($('a.products-actual-count').first().text());\n  });\n  $('button.add-cart-button').click(function (event) {\n    event.preventDefault();\n    $.ajax({\n      method: \"POST\",\n      url: WELCOME_DATA.addToCart + $(this).data('id')\n    }).done(function () {\n      Swal.fire({\n        title: 'Brawo!',\n        text: 'Produkt dodany do koszyka',\n        icon: 'success',\n        showCancelButton: true,\n        confirmButtonText: '<i class=\"fas fa-cart-plus\"></i> Przejdź do koszyka',\n        cancelButtonText: '<i class=\"fas fa-shopping-bag\"></i> Kontynuuj zakupy'\n      }).then(function (result) {\n        if (result.isConfirmed) {\n          alert('OK');\n        }\n      });\n    }).fail(function () {\n      Swal.fire({\n        icon: 'error',\n        title: 'Oops...',\n        text: 'aaa',\n        footer: '<a href=\"\">Why do I have this issue?</a>'\n      });\n    });\n  });\n\n  function getProducts(paginate) {\n    var form = $('form.sidebar-filter').serialize();\n    $.ajax({\n      method: \"GET\",\n      url: \"/\",\n      data: form + '&' + $.param({\n        paginate: paginate\n      })\n    }).done(function (response) {\n      $('div#products-wrapper').empty();\n      $.each(response.data, function (index, product) {\n        var html = '<div class=\"col-6 col-md-6 col-lg-4 mb-3\">' + '<div class=\"card h-100 border-0\">' + '<div class=\"card-img-top\">' + '<img src=\"' + getImage(product) + '\" class=\"img-fluid mx-auto d-block\" alt=\"Zdjęcie\">' + ' </div>' + '<div class=\"card-body text-center\">' + ' <h4 class=\"card-title\">' + product.name + ' </h4>\\n' + ' <h5 class=\"card-price small text-warning\">' + ' <i>PLN ' + product.price + '</i>';\n        '</h5>' + '</div>' + '</div>' + '</div>';\n        $('div#products-wrapper').append(html);\n      });\n    });\n  }\n\n  function getImage(product) {\n    if (!!product.image_path) {\n      return WELCOME_DATA.storagePath + product.image_path;\n    }\n\n    return WELCOME_DATA.defaultImage;\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyIkIiwiY2xpY2siLCJldmVudCIsInByZXZlbnREZWZhdWx0IiwidGV4dCIsImdldFByb2R1Y3RzIiwiZmlyc3QiLCJhamF4IiwibWV0aG9kIiwidXJsIiwiV0VMQ09NRV9EQVRBIiwiYWRkVG9DYXJ0IiwiZGF0YSIsImRvbmUiLCJTd2FsIiwiZmlyZSIsInRpdGxlIiwiaWNvbiIsInNob3dDYW5jZWxCdXR0b24iLCJjb25maXJtQnV0dG9uVGV4dCIsImNhbmNlbEJ1dHRvblRleHQiLCJ0aGVuIiwicmVzdWx0IiwiaXNDb25maXJtZWQiLCJhbGVydCIsImZhaWwiLCJmb290ZXIiLCJwYWdpbmF0ZSIsImZvcm0iLCJzZXJpYWxpemUiLCJwYXJhbSIsInJlc3BvbnNlIiwiZW1wdHkiLCJlYWNoIiwiaW5kZXgiLCJwcm9kdWN0IiwiaHRtbCIsImdldEltYWdlIiwibmFtZSIsInByaWNlIiwiYXBwZW5kIiwiaW1hZ2VfcGF0aCIsInN0b3JhZ2VQYXRoIiwiZGVmYXVsdEltYWdlIl0sInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9qcy9maWx0cnVqLmpzP2FhMmMiXSwic291cmNlc0NvbnRlbnQiOlsiJChmdW5jdGlvbigpe1xuXG5cblxuICAkKCdkaXYucHJvZHVjdHMtY291bnQgYScpLmNsaWNrKGZ1bmN0aW9uKGV2ZW50KSB7XG4gICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcbiAgICAkKCdhLnByb2R1Y3RzLWFjdHVhbC1jb3VudCcpLnRleHQoJCh0aGlzKS50ZXh0KCkpO1xuICAgIGdldFByb2R1Y3RzKCQodGhpcykudGV4dCgpKTtcblxuICB9KTtcblxuICAgICQoJ2EjZmlsdHJ1aicpLmNsaWNrKGZ1bmN0aW9uKGV2ZW50KXtcbiAgICAgICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgZ2V0UHJvZHVjdHMoJCgnYS5wcm9kdWN0cy1hY3R1YWwtY291bnQnKS5maXJzdCgpLnRleHQoKSk7XG5cblxuICAgIH0pO1xuXG4gICAgJCgnYnV0dG9uLmFkZC1jYXJ0LWJ1dHRvbicpLmNsaWNrKGZ1bmN0aW9uKGV2ZW50KXtcbiAgICAgICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgJC5hamF4KHtcbiAgICAgICAgICAgIG1ldGhvZDpcIlBPU1RcIixcbiAgICAgICAgICAgIHVybDogV0VMQ09NRV9EQVRBLmFkZFRvQ2FydCArICQodGhpcykuZGF0YSgnaWQnKVxuICAgICAgICB9KVxuICAgICAgICAgICAgLmRvbmUoZnVuY3Rpb24gKCl7XG4gICAgICAgICAgICAgICAgU3dhbC5maXJlKHtcbiAgICAgICAgICAgICAgICAgICAgdGl0bGU6ICdCcmF3byEnLFxuICAgICAgICAgICAgICAgICAgICB0ZXh0OiAnUHJvZHVrdCBkb2RhbnkgZG8ga29zenlrYScsXG4gICAgICAgICAgICAgICAgICAgIGljb246ICdzdWNjZXNzJyxcbiAgICAgICAgICAgICAgICAgICAgc2hvd0NhbmNlbEJ1dHRvbjogdHJ1ZSxcbiAgICAgICAgICAgICAgICAgICAgY29uZmlybUJ1dHRvblRleHQ6ICc8aSBjbGFzcz1cImZhcyBmYS1jYXJ0LXBsdXNcIj48L2k+IFByemVqZMW6IGRvIGtvc3p5a2EnLFxuICAgICAgICAgICAgICAgICAgICBjYW5jZWxCdXR0b25UZXh0OiAnPGkgY2xhc3M9XCJmYXMgZmEtc2hvcHBpbmctYmFnXCI+PC9pPiBLb250eW51dWogemFrdXB5J1xuICAgICAgICAgICAgICAgIH0pLnRoZW4oKHJlc3VsdCkgPT4ge1xuICAgICAgICAgICAgICAgICAgICBpZiAocmVzdWx0LmlzQ29uZmlybWVkKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBhbGVydCgnT0snKTtcblxuXG4gICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICB9KVxuICAgICAgICAgICAgfSlcbiAgICAgICAgICAgIC5mYWlsKGZ1bmN0aW9uICgpe1xuICAgICAgICAgICAgICAgIFN3YWwuZmlyZSh7XG4gICAgICAgICAgICAgICAgICAgIGljb246ICdlcnJvcicsXG4gICAgICAgICAgICAgICAgICAgIHRpdGxlOiAnT29wcy4uLicsXG4gICAgICAgICAgICAgICAgICAgIHRleHQ6ICdhYWEnLFxuICAgICAgICAgICAgICAgICAgICBmb290ZXI6ICc8YSBocmVmPVwiXCI+V2h5IGRvIEkgaGF2ZSB0aGlzIGlzc3VlPzwvYT4nXG4gICAgICAgICAgICAgICAgfSlcbiAgICAgICAgICAgIH0pO1xuICAgIH0pO1xuXG5cblxuICAgIGZ1bmN0aW9uIGdldFByb2R1Y3RzKHBhZ2luYXRlKXtcbiAgICAgIGNvbnN0IGZvcm0gPSAgJCgnZm9ybS5zaWRlYmFyLWZpbHRlcicpLnNlcmlhbGl6ZSgpO1xuICAgICAgICQuYWpheCh7XG4gICAgICAgIG1ldGhvZDpcIkdFVFwiLFxuICAgICAgICB1cmw6IFwiL1wiLFxuICAgICAgICBkYXRhOiBmb3JtICsgJyYnICsgJC5wYXJhbSh7cGFnaW5hdGU6IHBhZ2luYXRlfSlcbiAgICB9KVxuICAgICAgICAuZG9uZShmdW5jdGlvbiAocmVzcG9uc2Upe1xuICAgICAgICAgICAgJCgnZGl2I3Byb2R1Y3RzLXdyYXBwZXInKS5lbXB0eSgpO1xuICAgICAgICAgICAgJC5lYWNoKHJlc3BvbnNlLmRhdGEsIGZ1bmN0aW9uIChpbmRleCwgcHJvZHVjdCl7XG4gICAgICAgICAgICAgICAgY29uc3QgaHRtbCA9ICc8ZGl2IGNsYXNzPVwiY29sLTYgY29sLW1kLTYgY29sLWxnLTQgbWItM1wiPicgK1xuICAgICAgICAgICAgICAgICc8ZGl2IGNsYXNzPVwiY2FyZCBoLTEwMCBib3JkZXItMFwiPicgK1xuICAgICAgICAgICAgICAgICAgJzxkaXYgY2xhc3M9XCJjYXJkLWltZy10b3BcIj4nICtcblxuICAgICAgICAgICAgICAgICAgICAgICAgICAnPGltZyBzcmM9XCInKyBnZXRJbWFnZShwcm9kdWN0KSArICdcIiBjbGFzcz1cImltZy1mbHVpZCBteC1hdXRvIGQtYmxvY2tcIiBhbHQ9XCJaZGrEmWNpZVwiPicgK1xuXG5cblxuICAgICAgICAgICAgICAgICAnIDwvZGl2PicgK1xuICAgICAgICAgICAgICAgICAgJzxkaXYgY2xhc3M9XCJjYXJkLWJvZHkgdGV4dC1jZW50ZXJcIj4nICtcbiAgICAgICAgICAgICAgICAgICAnIDxoNCBjbGFzcz1cImNhcmQtdGl0bGVcIj4nICtcblxuICAgICAgICAgICAgICAgICAgICAgcHJvZHVjdC5uYW1lICtcblxuXG4gICAgICAgICAgICAgICAgICAgJyA8L2g0PlxcbicgK1xuICAgICAgICAgICAgICAgICAgICcgPGg1IGNsYXNzPVwiY2FyZC1wcmljZSBzbWFsbCB0ZXh0LXdhcm5pbmdcIj4nICtcbiAgICAgICAgICAgICAgICAgICAgICcgPGk+UExOICcrIHByb2R1Y3QucHJpY2UgKyc8L2k+J1xuXG4gICAgICAgICAgICAgICAgICAgICc8L2g1PicgK1xuICAgICAgICAgICAgICAgICAgJzwvZGl2PicgK1xuICAgICAgICAgICAgICAgICc8L2Rpdj4nICtcbiAgICAgICAgICAgICAgJzwvZGl2Pic7XG4gICAgICAgICAgICAgICQoJ2RpdiNwcm9kdWN0cy13cmFwcGVyJykuYXBwZW5kKGh0bWwpO1xuICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgICAgfSk7XG5cblxuICAgIH1cbiAgICBmdW5jdGlvbiBnZXRJbWFnZShwcm9kdWN0KSB7XG4gICAgICBpZighIXByb2R1Y3QuaW1hZ2VfcGF0aCkge1xuICAgICAgICAgIHJldHVybiBXRUxDT01FX0RBVEEuc3RvcmFnZVBhdGggKyBwcm9kdWN0LmltYWdlX3BhdGg7XG4gICAgICB9XG4gICAgICByZXR1cm4gV0VMQ09NRV9EQVRBLmRlZmF1bHRJbWFnZVxuXG4gIH1cbn0pO1xuIl0sIm1hcHBpbmdzIjoiQUFBQUEsQ0FBQyxDQUFDLFlBQVU7RUFJVkEsQ0FBQyxDQUFDLHNCQUFELENBQUQsQ0FBMEJDLEtBQTFCLENBQWdDLFVBQVNDLEtBQVQsRUFBZ0I7SUFDOUNBLEtBQUssQ0FBQ0MsY0FBTjtJQUNBSCxDQUFDLENBQUMseUJBQUQsQ0FBRCxDQUE2QkksSUFBN0IsQ0FBa0NKLENBQUMsQ0FBQyxJQUFELENBQUQsQ0FBUUksSUFBUixFQUFsQztJQUNBQyxXQUFXLENBQUNMLENBQUMsQ0FBQyxJQUFELENBQUQsQ0FBUUksSUFBUixFQUFELENBQVg7RUFFRCxDQUxEO0VBT0VKLENBQUMsQ0FBQyxXQUFELENBQUQsQ0FBZUMsS0FBZixDQUFxQixVQUFTQyxLQUFULEVBQWU7SUFDaENBLEtBQUssQ0FBQ0MsY0FBTjtJQUNBRSxXQUFXLENBQUNMLENBQUMsQ0FBQyx5QkFBRCxDQUFELENBQTZCTSxLQUE3QixHQUFxQ0YsSUFBckMsRUFBRCxDQUFYO0VBR0gsQ0FMRDtFQU9BSixDQUFDLENBQUMsd0JBQUQsQ0FBRCxDQUE0QkMsS0FBNUIsQ0FBa0MsVUFBU0MsS0FBVCxFQUFlO0lBQzdDQSxLQUFLLENBQUNDLGNBQU47SUFDQUgsQ0FBQyxDQUFDTyxJQUFGLENBQU87TUFDSEMsTUFBTSxFQUFDLE1BREo7TUFFSEMsR0FBRyxFQUFFQyxZQUFZLENBQUNDLFNBQWIsR0FBeUJYLENBQUMsQ0FBQyxJQUFELENBQUQsQ0FBUVksSUFBUixDQUFhLElBQWI7SUFGM0IsQ0FBUCxFQUlLQyxJQUpMLENBSVUsWUFBVztNQUNiQyxJQUFJLENBQUNDLElBQUwsQ0FBVTtRQUNOQyxLQUFLLEVBQUUsUUFERDtRQUVOWixJQUFJLEVBQUUsMkJBRkE7UUFHTmEsSUFBSSxFQUFFLFNBSEE7UUFJTkMsZ0JBQWdCLEVBQUUsSUFKWjtRQUtOQyxpQkFBaUIsRUFBRSxxREFMYjtRQU1OQyxnQkFBZ0IsRUFBRTtNQU5aLENBQVYsRUFPR0MsSUFQSCxDQU9RLFVBQUNDLE1BQUQsRUFBWTtRQUNoQixJQUFJQSxNQUFNLENBQUNDLFdBQVgsRUFBd0I7VUFDcEJDLEtBQUssQ0FBQyxJQUFELENBQUw7UUFHSDtNQUNKLENBYkQ7SUFjSCxDQW5CTCxFQW9CS0MsSUFwQkwsQ0FvQlUsWUFBVztNQUNiWCxJQUFJLENBQUNDLElBQUwsQ0FBVTtRQUNORSxJQUFJLEVBQUUsT0FEQTtRQUVORCxLQUFLLEVBQUUsU0FGRDtRQUdOWixJQUFJLEVBQUUsS0FIQTtRQUlOc0IsTUFBTSxFQUFFO01BSkYsQ0FBVjtJQU1ILENBM0JMO0VBNEJILENBOUJEOztFQWtDQSxTQUFTckIsV0FBVCxDQUFxQnNCLFFBQXJCLEVBQThCO0lBQzVCLElBQU1DLElBQUksR0FBSTVCLENBQUMsQ0FBQyxxQkFBRCxDQUFELENBQXlCNkIsU0FBekIsRUFBZDtJQUNDN0IsQ0FBQyxDQUFDTyxJQUFGLENBQU87TUFDTkMsTUFBTSxFQUFDLEtBREQ7TUFFTkMsR0FBRyxFQUFFLEdBRkM7TUFHTkcsSUFBSSxFQUFFZ0IsSUFBSSxHQUFHLEdBQVAsR0FBYTVCLENBQUMsQ0FBQzhCLEtBQUYsQ0FBUTtRQUFDSCxRQUFRLEVBQUVBO01BQVgsQ0FBUjtJQUhiLENBQVAsRUFLRWQsSUFMRixDQUtPLFVBQVVrQixRQUFWLEVBQW1CO01BQ3JCL0IsQ0FBQyxDQUFDLHNCQUFELENBQUQsQ0FBMEJnQyxLQUExQjtNQUNBaEMsQ0FBQyxDQUFDaUMsSUFBRixDQUFPRixRQUFRLENBQUNuQixJQUFoQixFQUFzQixVQUFVc0IsS0FBVixFQUFpQkMsT0FBakIsRUFBeUI7UUFDM0MsSUFBTUMsSUFBSSxHQUFHLCtDQUNiLG1DQURhLEdBRVgsNEJBRlcsR0FJSCxZQUpHLEdBSVdDLFFBQVEsQ0FBQ0YsT0FBRCxDQUpuQixHQUkrQixvREFKL0IsR0FRWixTQVJZLEdBU1gscUNBVFcsR0FVViwwQkFWVSxHQVlSQSxPQUFPLENBQUNHLElBWkEsR0FlVixVQWZVLEdBZ0JWLDZDQWhCVSxHQWlCUixVQWpCUSxHQWlCSUgsT0FBTyxDQUFDSSxLQWpCWixHQWlCbUIsTUFqQmhDO1FBbUJJLFVBQ0YsUUFERSxHQUVKLFFBRkksR0FHTixRQUhNO1FBSU52QyxDQUFDLENBQUMsc0JBQUQsQ0FBRCxDQUEwQndDLE1BQTFCLENBQWlDSixJQUFqQztNQUNELENBekJEO0lBMEJLLENBakNWO0VBb0NGOztFQUNELFNBQVNDLFFBQVQsQ0FBa0JGLE9BQWxCLEVBQTJCO0lBQ3pCLElBQUcsQ0FBQyxDQUFDQSxPQUFPLENBQUNNLFVBQWIsRUFBeUI7TUFDckIsT0FBTy9CLFlBQVksQ0FBQ2dDLFdBQWIsR0FBMkJQLE9BQU8sQ0FBQ00sVUFBMUM7SUFDSDs7SUFDRCxPQUFPL0IsWUFBWSxDQUFDaUMsWUFBcEI7RUFFSDtBQUNGLENBbEdBLENBQUQiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvZmlsdHJ1ai5qcy5qcyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/js/filtruj.js\n");
+  function getProducts(paginate) {
+    var form = $('form.sidebar-filter').serialize();
+    $.ajax({
+      method: "GET",
+      url: "/",
+      data: form + '&' + $.param({
+        paginate: paginate
+      })
+    }).done(function (response) {
+      $('div#products-wrapper').empty();
+      $.each(response.data, function (index, product) {
+        var html = '<div class="col-6 col-md-6 col-lg-4 mb-3">' + '<div class="card h-100 border-0">' + '<div class="card-img-top">' + '<img src="' + getImage(product) + '" class="img-fluid mx-auto d-block" alt="Zdjęcie">' + ' </div>' + '<div class="card-body text-center">' + ' <h4 class="card-title">' + product.name + ' </h4>\n' + ' <h5 class="card-price small text-warning">' + ' <i>PLN ' + product.price + '</i>' + '</h5>' + '</div>' + '<button class="btn btn-success btn-sm add-cart-button"' + getDisabled() + ' data-id="' + product.id + '">' + '<i class="fas fa-cart-plus"></i> Dodaj do koszyka' + '</button>' + '</div>' + '</div>';
+        $('div#products-wrapper').append(html);
+      });
+    });
+  }
 
-/***/ })
+  function getImage(product) {
+    if (!!product.image_path) {
+      return WELCOME_DATA.storagePath + product.image_path;
+    }
 
-/******/ 	});
-/************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval-source-map devtool is used.
-/******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./resources/js/filtruj.js"]();
-/******/ 	
+    return WELCOME_DATA.defaultImage;
+  }
+
+  function getDisabled() {
+    if (WELCOME_DATA.isGuest) {
+      return 'disabled';
+    }
+
+    return '';
+  }
+});
 /******/ })()
 ;

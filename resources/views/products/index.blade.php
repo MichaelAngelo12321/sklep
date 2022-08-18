@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 
 <div class="container">
@@ -40,15 +41,15 @@
                     <td>@if($product->hasCategory()){{$product->category->name}}@endif</td>
                     <td>
                         <a href="{{ route('products.show', $product->id) }}">
-                        <button class="btn btn-primary btn-sm"><i class="fa-solid fa-magnifying-glass"></i></button>  
+                        <button class="btn btn-primary btn-sm"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </a>
                         <a href="{{ route('products.edit', $product->id) }}">
-                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>  
+                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
                         </a>
                         <button class="btn btn-danger btn-sm delete" data-id="{{$product->id}}"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 </tr>
-            @endforeach    
+            @endforeach
         </tbody>
         </table>
         {{ $products->links() }}

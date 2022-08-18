@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -41,7 +42,8 @@ class WelcomeController extends Controller
         return view('welcome', [
             'products' => $query->get(),
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
-            'defaultImage' => config('shop.defaultImage')
+            'defaultImage' => config('shop.defaultImage'),
+            'isGuest' => Auth::guest()
          ]);
     }
 }
