@@ -4,6 +4,12 @@ try {
 window.$ = window.jQuery = require('jquery');
 window.Swal =  require('sweetalert2');
    require('bootstrap');
+
+window.$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 } catch (e) {}
 
 /**

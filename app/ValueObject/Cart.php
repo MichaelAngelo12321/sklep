@@ -6,6 +6,7 @@ namespace App\ValueObject;
 use App\Models\Product;
 use Closure;
 use Illuminate\Support\Collection;
+use phpDocumentor\Reflection\Types\Integer;
 
 
 class Cart
@@ -33,7 +34,25 @@ class Cart
         return $this->items->sum(function ($item) {
             return $item->getSum();
         });
+
     }
+
+
+        public function getQuantity(): int
+    {
+        return $this->items->sum(function ($item) {
+            return $item->getQuantity();
+        });
+    }
+
+
+    public function hasItems(): bool
+    {
+        return $this->items->isNotEmpty();
+    }
+
+
+
     private function removeItemFromCollection(mixed $items, Product $product): mixed
     {
         return $items->reject($this->isProductIdSameAsItemProduct($product));

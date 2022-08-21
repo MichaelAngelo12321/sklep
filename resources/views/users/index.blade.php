@@ -28,10 +28,13 @@
                 <td>{{$user->surname}}</td>
                 <td>{{$user->phone_number}}</td>
                 <td>
+                    <a href="{{ route('users.edit', $user->id) }}">
+                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+                    </a>
                     <button class="btn btn-danger btn-sm delete" data-id="{{$user->id}}"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
             </tr>
-        @endforeach    
+        @endforeach
     </tbody>
     </table>
     {{$users->links()}}
