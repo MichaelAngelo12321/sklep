@@ -38,3 +38,7 @@ you must add "SHOP_DEFAULT_IMAGE =https://via.placeholder.com/240x240/5fa9f8/efe
 ## Main View
 
 After you do everything, you will see the main panel with no products
+
+## Status
+
+Finished work
