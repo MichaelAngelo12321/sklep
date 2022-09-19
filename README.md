@@ -41,6 +41,25 @@ After you do everything, you will see the main panel with no products
 
 <img src="/glowna.PNG" alt="Main View"/>
 
+2. Login User
+<img src="/login.PNG" alt="Login"/>
+
+3. Register User
+<img src="/register.PNG" alt="Register"/>
+
+4. User Panel
+<img src="/userpanel.PNG" alt="User"/>
+
+5. Product Panel
+<img src="/productpanel.PNG" alt="Product"/>
+
+5. Orders Panel
+<img src="/orders.PNG" alt="Orders"/>
+
+6. Shopping cart
+<img src="/koszyk.PNG" alt="Shopping Cart"/>
+
+
 ## Status
 
 Finished work
