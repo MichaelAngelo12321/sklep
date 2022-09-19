@@ -39,6 +39,8 @@ you must add "SHOP_DEFAULT_IMAGE =https://via.placeholder.com/240x240/5fa9f8/efe
 
 After you do everything, you will see the main panel with no products
 
+<img src="/glowna.PNG" alt="Main View"/>
+
 ## Status
 
 Finished work
